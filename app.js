@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+const dotenv = require('dotenv');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -37,5 +37,11 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
+dotenv.config();
+if(process.env.NODE_ENV ==="production"){
+  app.use(express.static("client/build"));
+  app.get("*"),(req,res)=>{
+    res.sendFile(path.resolve(__dirname,'client','build','index.html'))
+  }
+}
 module.exports = app;

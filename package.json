@@ -3,12 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "client-install": "npm install --prefix client",
+    
+    "build":"cd client && npm run build",
+    "client-install": "cd client && npm install",
     "start": "node ./bin/www",
     "server": "nodemon www.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "heroku-postbuild": "npm run client-install && npm run build"
   },
   "dependencies": {
     "concurrently": "^5.1.0",
